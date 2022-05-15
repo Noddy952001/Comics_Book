@@ -1,0 +1,23 @@
+.display_image{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+body{
+    background-image: url("https://wallpaperaccess.com/full/2641047.gif");
+    background-color: #cccccc;
+    /* height: 100%; */
+    /* background-position: center; */
+    /* background-repeat: no-repeat; */
+    background-size: cover;
+    /* position: relative; */
+  }
+
+  .nav_div a{
+      color: white;
+      font-size: 230%;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  
