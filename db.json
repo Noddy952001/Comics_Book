@@ -101,5 +101,19 @@
         "Price":600,
         "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3eyCvDVo3Sar9QstbDFwK1GPP8UaUaQkVpWffQCjZLIjkeNPAPa1jf7rC_jdRC_gvnyY&usqp=CAU"
     }
-]}
 
+],
+
+    "data2" :
+    [
+        {
+            "Book_name":"Lidocaine Hydrochloride",
+            "Price":600,
+            "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3eyCvDVo3Sar9QstbDFwK1GPP8UaUaQkVpWffQCjZLIjkeNPAPa1jf7rC_jdRC_gvnyY&usqp=CAU"
+        }
+    ]
+
+}
+
+
+   

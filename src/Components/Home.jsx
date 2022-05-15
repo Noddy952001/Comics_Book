@@ -2,12 +2,19 @@ import React, { useEffect, useState } from "react"
 import "../Style/dashboard.css"
 import "../Style/Home.css"
 import axios from "axios"
+import {Navbar} from "./navbar"
 import { Link } from "react-router-dom"
+import { get_cart } from "../Redux/action"
+import { useDispatch } from "react-redux"
+
 
 export const Home = () => {
 
     const [data,setData] = useState([]);
+    const [pdata , setPdata ] = useState([])
     const [status, setStatus] = useState(true)
+
+    const dispatch = useDispatch()
 
     useEffect(()=>{
       getdata()
@@ -19,6 +26,21 @@ export const Home = () => {
       })
       
     }
+
+    
+
+    const AddToCart = (el) => {
+
+        dispatch(get_cart(el))
+        alert("add sucssfull")
+
+        // setPdata(pdata.push(el))
+
+        // console.log("el" , el)
+
+        // console.log("pdata",pdata)
+    }
+
 
 
     function handel_Acc(){
@@ -46,8 +68,6 @@ export const Home = () => {
             setStatus(true)
         }
         setData(All_data);
-
-
     }
 
     return(
@@ -58,16 +78,7 @@ export const Home = () => {
             </div>
 
             <div className="div_second">
-                <div className="nav_div">
-                    <Link to="/">Dashboard</Link>
-                    <Link to="/home">Home</Link>
-                </div>
-
-                <div>
-                   <span>
-                        <img src="https://images.unsplash.com/photo-1618519764620-7403abdbdfe9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y29taWN8ZW58MHx8MHx8&w=1000&q=80" alt=""  width={"10%"} style={{borderRadius:"100%" , marginTop:"2%" , marginLeft:"90%"  }}   />
-                   </span>
-                </div>
+             <Navbar/>
             </div>
 
             <div className="image_div">
@@ -97,7 +108,6 @@ export const Home = () => {
                         return(
                         <div>
                                 <div style={{
-
                                     width:"80%",
                                     height:"400px",
                                     display: "grid",
@@ -107,7 +117,7 @@ export const Home = () => {
                                     marginTop:"10%",
                                     borderRadius:"10px",
                                     backgroundColor:"#61d4ff"
-                                    }}>
+                                }}>
 
                                     <img src={el.image} alt="" width={"100%"} height={"400px"} 
                                     style={{borderRadius:"10px"}} 
@@ -134,7 +144,11 @@ export const Home = () => {
                                         height:"10%",
                                         marginTop : "20%"
 
-                                        }}>add 
+                                        }} 
+                                        onClick={ () => {
+                                            AddToCart(el)
+                                        }}
+                                        >add 
                                     </button>
                             </div>
                         </div>
