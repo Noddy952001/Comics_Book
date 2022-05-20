@@ -106,6 +106,9 @@ export const Register = () => {
                        
                 </form>
 
+                <Link to={"/login"}> Already account use can login here</Link>
+
+
             </div>
 
 
