@@ -6,40 +6,60 @@ import {Navbar} from "./navbar"
 import { Link } from "react-router-dom"
 import { get_cart } from "../Redux/action"
 import { useDispatch } from "react-redux"
+import { useParams } from "react-router-dom"
 
 
 export const Home = () => {
 
     const [data,setData] = useState([]);
     const [pdata , setPdata ] = useState([])
+    const [filterData , setfilterData] = useState([])
     const [status, setStatus] = useState(true)
+    const [page, setPage] = useState(1);
+    const [search , setSearch] = useState()
+    var size = 4;
+
 
     const dispatch = useDispatch()
 
     useEffect(()=>{
       getdata()
-    },[])
+      setfilterData()
+    },[size,page])
     const getdata = ()=>{
-      axios.get("http://localhost:3001/data").then(function(res){
-          setData(res.data)
-          console.log("data" , res.data)
+      axios.get("https://comicforfun.herokuapp.com/comic" , 
+      {
+        params:{
+            size: size,
+            page: page
+        }
+      }
+      
+      ).then(function(res){
+          setData(res.data.comics)
+          setfilterData(res.data)
+          console.log("data" , res.data.comics)
       })
       
     }
 
-    
+    const getsearch = () => {
+
+        axios.get(`https://comicforfun.herokuapp.com/comic/search/${search}`).then(function(res){
+            setData(res.data)
+        })
+
+        console.log(search);
+    }
 
     const AddToCart = (el) => {
 
-        dispatch(get_cart(el))
-        alert("add sucssfull")
-
-        // setPdata(pdata.push(el))
-
-        // console.log("el" , el)
-
-        // console.log("pdata",pdata)
+        axios.post("https://comicforfun.herokuapp.com/add_cart" , el ).then(function(res){
+            // setData(res.data)  
+            alert("suuces")
+        })
     }
+
 
 
 
@@ -78,7 +98,11 @@ export const Home = () => {
             </div>
 
             <div className="div_second">
+
              <Navbar/>
+
+                 
+                
             </div>
 
             <div className="image_div">
@@ -103,10 +127,20 @@ export const Home = () => {
                    Price Heigh to Low
                 </button>
 
+                <span>
+                  <input type="text" name="" onChange={(e)=> {
+                      setSearch(e.target.value)
+                  }} placeholder="Search"  /> 
+
+                  <button  
+                    onClick={getsearch}
+                  > Seacrch </button>
+                </span>    
+
                 {
-                    data?.map((el)=> {
+                    data?.map((el,i)=> {
                         return(
-                        <div>
+                        <div key={i}>
                                 <div style={{
                                     width:"80%",
                                     height:"400px",
@@ -155,6 +189,16 @@ export const Home = () => {
                         )
                     })
                 }
+            </div>
+
+            <div className="pagination">
+                <button className="btn" onClick={() => setPage(page - 1)}>
+                  PREV
+                </button>
+                <button  className="btn"  onClick={() => setPage(page + 1)}>
+                    NEXT
+                </button >
+                <div>Current page: {page}</div>
             </div>
         </div>
     )
